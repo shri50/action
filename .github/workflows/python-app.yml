@@ -5,9 +5,9 @@ name: Python application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "dev" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "dev" ]
 
 permissions:
   contents: read
@@ -28,4 +28,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: commit to staging 
+      run: |
+        git fetch origin staging:staging
+        git checkout staging
+        git add *
+        git commit -m "new push to staging"
+        git push
 
