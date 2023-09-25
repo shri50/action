@@ -36,6 +36,6 @@ jobs:
         git pull origin staging
         git merge dev
         git push origin staging
-      working-directory: ./path/to/repo # Replace with the actual path to your repository
+      working-directory: /home/runner/work/action/action/ # Replace with the actual path to your repository
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
