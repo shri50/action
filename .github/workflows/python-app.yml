@@ -23,16 +23,19 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
+        
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: commit to staging 
-      run: |
-        git fetch origin staging:staging
-        git checkout staging
-        git add *
-        git commit -m "new push to staging"
-        git push
 
+    - name: Merge dev to staging
+      run: |
+        git checkout staging
+        git pull origin staging
+        git merge dev
+        git push origin staging
+      working-directory: ./path/to/repo # Replace with the actual path to your repository
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
